@@ -14,11 +14,15 @@ interface Exoplanet {
   images?: { url: string }[];
 }
 
+type Colors = {
+  [key: string]: string;
+};
+
 // Componente Dashboard que exibe a lista de exoplanetas
 
 function Dashboard({ exoplanets }: { exoplanets: Exoplanet[] }) {
-  const getClassificationColor = (classification) => {
-    const colors = {
+  const getClassificationColor = (classification: string) => {
+    const colors: Colors = {
       Gasoso: "bg-orange-500",
       Terrestre: "bg-green-500",
       Subneptuniano: "bg-blue-500",

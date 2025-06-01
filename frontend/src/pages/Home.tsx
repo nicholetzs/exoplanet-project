@@ -544,7 +544,7 @@ function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-3">
               <span className="text-gray-400">
-                ExoArchive © 2024 - A Universe by Many Eyes
+                ExoArchive © 2025 - A Universe by Many Eyes 🧑🏻‍🚀
               </span>
             </div>
             <div className="flex gap-4">
@@ -553,21 +553,42 @@ function Home() {
                 size="sm"
                 className="text-gray-400 hover:text-cyan-400"
               >
-                Twitter
+                <a
+                  className="text-gray-400 hover:text-cyan-400"
+                  href="https://vsco.co/nicholetzs/gallery"
+                  target="_blank"
+                  rel="Nichole Nicolini"
+                >
+                  VSCO
+                </a>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 className="text-gray-400 hover:text-cyan-400"
               >
-                GitHub
+                <a
+                  className="text-gray-400 hover:text-cyan-400"
+                  href="https://github.com/nicholetzs"
+                  target="_blank"
+                  rel="Nichole Nicolini"
+                >
+                  GitHub
+                </a>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 className="text-gray-400 hover:text-cyan-400"
               >
-                Discord
+                <a
+                  className="text-gray-400 hover:text-cyan-400"
+                  href="https://www.instagram.com/nicholetzs/"
+                  target="_blank"
+                  rel="Nichole Nicolini"
+                >
+                  Instagram
+                </a>
               </Button>
             </div>
           </div>
