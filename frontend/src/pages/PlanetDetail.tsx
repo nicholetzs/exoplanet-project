@@ -28,7 +28,7 @@ function PlanetDetail() {
   const fetchPlanet = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/exoplanets/${id}`
+        `https://exoplanet-project.onrender.com/api/exoplanets/${id}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -48,7 +48,7 @@ function PlanetDetail() {
     if (window.confirm("Tem certeza que deseja deletar este exoplaneta?")) {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/exoplanets/${id}`,
+          `https://exoplanet-project.onrender.com/api/exoplanets/${id}`,
           {
             method: "DELETE",
           }

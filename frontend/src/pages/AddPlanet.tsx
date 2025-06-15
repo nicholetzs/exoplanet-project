@@ -130,11 +130,14 @@ function AddPlanet() {
       // Remove imageUrl do payload pois será convertido para images
       const { imageUrl, ...finalPayload } = payload;
 
-      const response = await fetch("http://localhost:3001/api/exoplanets", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalPayload),
-      });
+      const response = await fetch(
+        "https://exoplanet-project.onrender.com/api/exoplanets",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(finalPayload),
+        }
+      );
 
       if (response.ok) {
         setTimeout(() => {

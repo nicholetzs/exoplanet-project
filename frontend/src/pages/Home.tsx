@@ -52,7 +52,9 @@ function Home() {
   const fetchExoplanets = async () => {
     try {
       console.log("Tentando carregar exoplanetas...");
-      const response = await fetch("http://localhost:3001/api/exoplanets");
+      const response = await fetch(
+        "https://exoplanet-project.onrender.com/api/exoplanets"
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
