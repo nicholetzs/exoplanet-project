@@ -8,10 +8,16 @@ const prisma = new PrismaClient();
 const PORT = 3001;
 
 app.use(
-  cors(
-    "http://localhost:5173" // Permitir acesso do frontend
-  )
+  cors({
+    origin: [
+      "http://localhost:5173", // para quando você estiver testando localmente
+      "https://exoooop.netlify.app", // seu frontend em produção
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
 );
+
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
