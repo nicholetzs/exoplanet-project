@@ -1,6 +1,10 @@
 # 🪐 Exoplanet Project
 
-Este projeto é um CRUD completo de exoplanetas, desenvolvido com foco em design elegante, comunicação eficiente entre backend e frontend e facilidade de uso.
+Este projeto é um **CRUD completo de exoplanetas**, desenvolvido com foco em design elegante, comunicação eficiente entre backend e frontend e facilidade de uso.
+
+(Ao clicar no link do render, vá para a rota de: /api/health)
+
+---
 
 ## ✨ Visão Geral
 
@@ -18,10 +22,10 @@ O objetivo é fornecer uma interface intuitiva e organizada para explorar mundos
 
 ## 🌐 Deploy da Aplicação
 
-| Parte      | Link                                                              |
-|------------|-------------------------------------------------------------------|
-| 🔭 Frontend (React + Tailwind) | [exoooop.netlify.app](https://exoooop.netlify.app)                     |
-| 🛰️ Backend (Node.js + Express + Prisma) | [exoplanet-project.onrender.com](https://exoplanet-project.onrender.com)         |
+| Parte                              | Link                                                                     |
+| ---------------------------------- | ------------------------------------------------------------------------ |
+| 🔭 Frontend (React + Tailwind CSS) | [exoooop.netlify.app](https://exoooop.netlify.app)                       |
+| 🛰️ Backend (Node.js + Express)     | [exoplanet-project.onrender.com](https://exoplanet-project.onrender.com) |
 
 ---
 
@@ -29,12 +33,31 @@ O objetivo é fornecer uma interface intuitiva e organizada para explorar mundos
 
 A aplicação está hospedada em dois serviços distintos:
 
-- **Frontend:** hospedado no **Netlify**, acessível publicamente através de `https://exoooop.netlify.app`
-- **Backend:** hospedado no **Render**, rodando na URL `https://exoplanet-project.onrender.com`
+- **Frontend:** hospedado no **Netlify**, acessível em `https://exoooop.netlify.app`
+- **Backend:** hospedado no **Render**, disponível em `https://exoplanet-project.onrender.com`
 
 ### 📡 Como se comunicam?
 
-O frontend faz requisições HTTP (via `fetch`) para o backend utilizando a URL pública. Por exemplo:
+O frontend faz requisições HTTP (via `fetch`) para o backend utilizando a URL pública. Exemplo de chamada:
 
 ```js
-await fetch("https://exoplanet-project.onrender.com/api/exoplanets")
+const response = await fetch("https://exoplanet-project.onrender.com/api/exoplanets");
+
+🚀 Como rodar localmente
+Backend
+cd backend
+npm install
+npx prisma generate
+npm start
+
+
+Frontend
+cd frontend
+npm install
+npm run dev
+```
+
+🛠️ Tecnologias Utilizadas
+Frontend: React, Vite, Tailwind CSS
+
+Backend: Node.js, Express, Prisma, SQLite
