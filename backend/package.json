@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node src/server.js",
     "start": "node src/server.js",
+    "build": "prisma generate && tsc",
     "db:generate": "prisma generate",
     "db:push": "prisma db push"
   },
