@@ -1,0 +1,40 @@
+# 🪐 Exoplanet Project
+
+Este projeto é um CRUD completo de exoplanetas, desenvolvido com foco em design elegante, comunicação eficiente entre backend e frontend e facilidade de uso.
+
+## ✨ Visão Geral
+
+A aplicação permite:
+
+- Listar exoplanetas
+- Adicionar novos exoplanetas
+- Visualizar detalhes de um exoplaneta
+- Editar informações existentes
+- Deletar exoplanetas
+
+O objetivo é fornecer uma interface intuitiva e organizada para explorar mundos além do Sistema Solar — tudo isso com um backend robusto e um frontend moderno.
+
+---
+
+## 🌐 Deploy da Aplicação
+
+| Parte      | Link                                                              |
+|------------|-------------------------------------------------------------------|
+| 🔭 Frontend (React + Tailwind) | [exoooop.netlify.app](https://exoooop.netlify.app)                     |
+| 🛰️ Backend (Node.js + Express + Prisma) | [exoplanet-project.onrender.com](https://exoplanet-project.onrender.com)         |
+
+---
+
+## 🔗 Comunicação entre Frontend e Backend
+
+A aplicação está hospedada em dois serviços distintos:
+
+- **Frontend:** hospedado no **Netlify**, acessível publicamente através de `https://exoooop.netlify.app`
+- **Backend:** hospedado no **Render**, rodando na URL `https://exoplanet-project.onrender.com`
+
+### 📡 Como se comunicam?
+
+O frontend faz requisições HTTP (via `fetch`) para o backend utilizando a URL pública. Por exemplo:
+
+```js
+await fetch("https://exoplanet-project.onrender.com/api/exoplanets")
