@@ -149,6 +149,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -166,6 +170,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -174,8 +179,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Exoplanet {\n  id              Int     @id @default(autoincrement())\n  name            String  @unique\n  nomenclature    String\n  classification  String\n  discoveryMethod String?\n\n  discoveryDate DateTime?\n  distanceLY    Float?\n  massJupiter   Float?\n  hostStar      String?\n  orbitalPeriod Float?\n  temperature   Float?\n  images        Image[]   @relation(\"ExoplanetImages\")\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @updatedAt\n}\n\nmodel Image {\n  id          Int       @id @default(autoincrement())\n  url         String\n  exoplanet   Exoplanet @relation(\"ExoplanetImages\", fields: [exoplanetId], references: [id], onDelete: Cascade)\n  exoplanetId Int\n  createdAt   DateTime  @default(now())\n}\n",
-  "inlineSchemaHash": "3ebb8c6cdf8fadf67eeab01620001cb0d1285c673965f962bd8873ac7bc0f84f",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Exoplanet {\n  id              Int     @id @default(autoincrement())\n  name            String  @unique\n  nomenclature    String\n  classification  String\n  discoveryMethod String?\n\n  discoveryDate DateTime?\n  distanceLY    Float?\n  massJupiter   Float?\n  hostStar      String?\n  orbitalPeriod Float?\n  temperature   Float?\n  images        Image[]   @relation(\"ExoplanetImages\")\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @updatedAt\n}\n\nmodel Image {\n  id          Int       @id @default(autoincrement())\n  url         String\n  exoplanet   Exoplanet @relation(\"ExoplanetImages\", fields: [exoplanetId], references: [id], onDelete: Cascade)\n  exoplanetId Int\n  createdAt   DateTime  @default(now())\n}\n",
+  "inlineSchemaHash": "4e5cbaea69ab5ff0b4d3f04e456aa616904b669a6a1ce6bf20859fb6be26df6e",
   "copyEngine": true
 }
 config.dirname = '/'
