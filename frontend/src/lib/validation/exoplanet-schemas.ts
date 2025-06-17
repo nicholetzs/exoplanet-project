@@ -68,38 +68,46 @@ export const step2Schema = z.object({
     }, "Temperature must be between 0 and 10,000 Kelvin"),
 });
 
-// Schema para Step 3 - Detalhes da Descoberta
+// ✅✅✅ SCHEMA PARA STEP 3 - CORRIGIDO ✅✅✅
 export const step3Schema = z.object({
-  discoveryMethod: z.string().optional().or(z.literal("")),
+  // TORNADO OBRIGATÓRIO: Removido .optional() e .or(), adicionado .min(1)
+  discoveryMethod: z.string().min(1, "O método de descoberta é obrigatório."),
 
+  // TORNADO OBRIGATÓRIO: Removido .optional() e a checagem de valor vazio dentro do .refine()
   discoveryDate: z
     .string()
-    .optional()
+    .min(1, "A data de descoberta é obrigatória.") // Garante que não é uma string vazia
     .refine((val) => {
-      if (!val || val === "") return true;
+      // Agora o refine só roda se já houver um valor, não precisamos mais do 'if (!val)'
       const date = new Date(val);
       const now = new Date();
-      const minDate = new Date("1995-01-01"); // First exoplanet discovery
-      return date >= minDate && date <= now;
-    }, "Discovery date must be between 1995 and today"),
+      const minDate = new Date("1995-01-01");
+      return (
+        date instanceof Date &&
+        !isNaN(date.valueOf()) &&
+        date >= minDate &&
+        date <= now
+      );
+    }, "A data deve ser válida e entre 1995 e hoje."),
 
+  // MANTIDO OPCIONAL: A estrutura para um campo opcional com validação estava correta.
   imageUrl: z
     .string()
     .optional()
     .refine((val) => {
-      if (!val || val === "") return true;
+      if (!val || val === "") return true; // Permite o campo ser vazio
       try {
         new URL(val);
         return true;
       } catch {
         return false;
       }
-    }, "Please enter a valid URL")
+    }, "Por favor, insira uma URL válida")
     .refine((val) => {
       if (!val || val === "") return true;
       const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
       return imageExtensions.some((ext) => val.toLowerCase().includes(ext));
-    }, "URL should point to an image file (jpg, png, gif, webp)"),
+    }, "A URL deve apontar para um arquivo de imagem (jpg, png, etc.)"),
 });
 
 // Schema completo para validação final

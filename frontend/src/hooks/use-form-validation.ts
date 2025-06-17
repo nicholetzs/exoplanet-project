@@ -25,12 +25,18 @@ export const useFormValidation = (initialData: FormData) => {
     {}
   );
 
-  // Validar campo específico
-  const validateField = (name: string, value: string, currentStep: number) => {
+  // ✅ CORRIGIDO: Agora recebe o formData atual para validar contra os dados mais recentes.
+  const validateField = (
+    name: string,
+    currentFormData: FormData,
+    currentStep: number
+  ) => {
     const schema = getSchemaByStep(currentStep);
 
     try {
-      schema.parse({ ...initialData, [name]: value });
+      // Valida o formulário inteiro para capturar erros de dependência entre campos
+      schema.parse(currentFormData);
+      // Se a validação do formulário completo passar, limpa o erro do campo específico
       setErrors((prev) => ({ ...prev, [name]: "" }));
       return true;
     } catch (error) {
@@ -38,19 +44,23 @@ export const useFormValidation = (initialData: FormData) => {
         const fieldError = error.errors.find((err) => err.path.includes(name));
         if (fieldError) {
           setErrors((prev) => ({ ...prev, [name]: fieldError.message }));
-          return false;
+        } else {
+          // Se não houver erro para este campo específico, mas a validação geral falhou,
+          // ainda assim limpamos o erro deste campo (pois ele pode ter sido corrigido).
+          setErrors((prev) => ({ ...prev, [name]: "" }));
         }
       }
+      // ✅ CORRIGIDO: A validação falhou de alguma forma, então retorna false.
+      return false;
     }
-    return true;
   };
 
-  // Validar step atual
+  // ✅ CORRIGIDO: Lógica de try/catch mais robusta e limpa erros em caso de sucesso.
   const validateCurrentStep = (formData: FormData, currentStep: number) => {
     const schema = getSchemaByStep(currentStep);
-
     try {
       schema.parse(formData);
+      setErrors({}); // Limpa todos os erros se o passo for válido
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -61,16 +71,16 @@ export const useFormValidation = (initialData: FormData) => {
           }
         });
         setErrors(newErrors);
-        return false;
       }
+      return false; // Retorna false se entrar no catch
     }
-    return false;
   };
 
-  // Validação final completa
+  // ✅ CORRIGIDO: Lógica de try/catch mais robusta
   const validateComplete = (formData: FormData) => {
     try {
       completeExoplanetSchema.parse(formData);
+      setErrors({});
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -81,10 +91,9 @@ export const useFormValidation = (initialData: FormData) => {
           }
         });
         setErrors(newErrors);
-        return false;
       }
+      return false;
     }
-    return false;
   };
 
   // Marcar campo como tocado

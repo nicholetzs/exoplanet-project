@@ -68,34 +68,42 @@ function AddPlanet() {
     getFieldClasses,
   } = useFormValidation(formData);
 
+  // ✅ CORRIGIDO: A lógica de validação agora usa os dados mais recentes.
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Marcar campo como tocado
+    // Cria o novo estado ANTES de atualizar, para garantir que estamos validando os dados corretos
+    const updatedFormData = { ...formData, [name]: value };
+    setFormData(updatedFormData);
+
     markFieldAsTouched(name);
 
-    // Validar em tempo real apenas se o campo já foi tocado
     if (touchedFields[name]) {
-      validateField(name, value, currentStep);
+      // Passa o objeto `updatedFormData` para a validação
+      validateField(name, updatedFormData, currentStep);
     }
   };
 
+  // ✅ CORRIGIDO: Mesma lógica aplicada aqui
   const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const updatedFormData = { ...formData, [name]: value };
+    setFormData(updatedFormData);
+
     markFieldAsTouched(name);
-    validateField(name, value, currentStep);
+    validateField(name, updatedFormData, currentStep);
   };
 
+  // ✅ CORRIGIDO: Mesma lógica aplicada aqui também
   const handleBlur = (name: string) => {
     markFieldAsTouched(name);
-    validateField(name, formData[name as keyof FormData], currentStep);
+    // No blur, o formData já foi atualizado pelo onChange, então podemos usá-lo diretamente
+    validateField(name, formData, currentStep);
   };
 
   const handleNextStep = () => {
     if (validateCurrentStep(formData, currentStep)) {
       setCurrentStep(currentStep + 1);
-      clearErrors(); // Limpar erros ao avançar
+      clearErrors();
     }
   };
 
@@ -249,7 +257,6 @@ function AddPlanet() {
           mobileMenuOpen={mobileMenuOpen}
           setMobileMenuOpen={setMobileMenuOpen}
         />
-
         <div className="relative z-10 flex items-center justify-center min-h-screen">
           <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm p-8">
             <CardContent className="text-center">
